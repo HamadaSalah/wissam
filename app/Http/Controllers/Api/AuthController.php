@@ -28,6 +28,13 @@ class AuthController extends Controller
      */
     public function login()
     {
+        if (request()->phone) {
+            $credentials = request(['phone', 'password']);
+            if (!$token = auth()->attempt($credentials)) {
+                return response()->json(['error' => 'Unauthorized'], 401);
+            }
+            return $this->respondWithToken($token);
+        }
         $credentials = request(['email', 'password']);
         if (request()->password) {
             if (!$token = auth()->attempt($credentials)) {
