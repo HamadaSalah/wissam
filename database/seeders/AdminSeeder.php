@@ -32,6 +32,13 @@ class AdminSeeder extends Seeder
         NewsCategory::create([
             'name' => 'اخبار منوعة'
         ]);
+        News::create([
+            'head' => 'الخبر الاول',
+            'body' => 'تفاصيل الخر الاول',
+            'img' => 'test.png',
+            'video' => 'video.mp4',
+            'news_category_id' => 1
+        ]);
         NewsCategory::create([
             'name' => 'من برامجنا'
         ]);
@@ -68,6 +75,23 @@ class AdminSeeder extends Seeder
             'name' => 'محمد علي',
             'category' => 4
         ]);
+        NewsCategory::create([
+            'name' => 'برنامج 1',
+            'category' => 2,
+            'img' => 'test.png'
+        ]);
+        NewsCategory::create([
+            'name' => 'برنامج 2',
+            'category' => 2,
+            'img' => 'test.png'
+        ]);
+        NewsCategory::create([
+            'name' => 'سناب 1',
+            'category' => 3,
+            'img' => 'test.png'
+        ]);
+
+        //
         News::create([
             'head' => 'خبر مثلا عن محمد علي',
             'img' => 'test.png',
@@ -78,5 +102,18 @@ class AdminSeeder extends Seeder
             'img' => 'test.png',
             'news_category_id' => 1
         ]);
+        News::create([
+            'head' => 'حلقة واحد من برنامج واحد',
+            'img' => 'test.png',
+            'video' => 'video.mp4',
+            'news_category_id' => 12
+        ]);
+        News::create([
+            'head' => 'سناب واحد داخل سناب 1',
+            'img' => 'test.png',
+            'video' => 'video.mp4',
+            'news_category_id' => 14
+        ]);
+        //
     }
 }
