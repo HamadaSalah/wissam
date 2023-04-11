@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\News;
+use App\Models\NewsCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -114,5 +115,25 @@ class NewsController extends Controller
         $prog->delete();
 
         return response()->json(['message' => 'News Deleted Successfully'], 200);
+    }
+    public function cats()
+    {
+        $cats = NewsCategory::where('category', null)->with('categories')->get();
+        return response()->json($cats, 200);
+    }
+    public function subcategory($id)
+    {
+        $cats = NewsCategory::where('category', $id)->with('categories')->get();
+        return response()->json($cats, 200);
+    }
+    public function showallnews($id)
+    {
+        $cats = News::where('news_category_id', $id)->get();
+        return response()->json($cats, 200);
+    }
+    public function news($id)
+    {
+        $news = News::findOrFail($id);
+        return response()->json($news, 200);
     }
 }

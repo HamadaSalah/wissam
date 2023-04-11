@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Admin;
+use App\Models\News;
 use App\Models\NewsCategory;
 use App\Models\Setting;
 use App\Models\User;
@@ -58,6 +59,16 @@ class AdminSeeder extends Seeder
         Setting::create([
             'live' => '',
             'live_status' => 1
+        ]);
+        //
+        NewsCategory::create([
+            'name' => 'محمد علي',
+            'category' => 4
+        ]);
+        News::create([
+            'head' => 'خبر مثلا عن محمد علي',
+            'img' => 'test.png',
+            'news_category_id' => 10
         ]);
     }
 }

@@ -30,7 +30,6 @@ Route::group([
     'prefix' => 'auth'
 
 ], function ($router) {
-
     Route::post('login', [AuthController::class, 'login']);
     Route::post('register', [AuthController::class, 'register']);
     Route::post('logout', [AuthController::class, 'logout']);
@@ -45,9 +44,10 @@ Route::group(['middleware' => 'auth:api'], function ($router) {
     Route::resource('video', VideosController::class);
     Route::resource('adds', AddsController::class);
     Route::resource('news', NewsController::class);
-    Route::get('/category', function () {
-        return response()->json(NewsCategory::all(), 200);
-    });
+    Route::get('/category', [NewsController::class, 'cats']);
+    Route::get('/subcategory/{id}', [NewsController::class, 'subcategory']);
+    Route::get('/showallnews/{id}', [NewsController::class, 'showallnews']);
+    Route::get('/news/{id}', [NewsController::class, 'news']);
     Route::get('/live', function () {
         return response()->json(Setting::select('live', 'live_status')->first(), 200);
     });
