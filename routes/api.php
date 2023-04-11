@@ -37,8 +37,8 @@ Route::group([
     Route::post('me', [AuthController::class, 'me']);
 });
 
-
-Route::group(['middleware' => 'auth:api'], function ($router) {
+// 'middleware' => 'auth:api'
+Route::group([], function ($router) {
 
     Route::resource('program', ProgramsController::class);
     Route::resource('video', VideosController::class);

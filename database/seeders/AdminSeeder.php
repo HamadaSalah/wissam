@@ -56,6 +56,9 @@ class AdminSeeder extends Seeder
         NewsCategory::create([
             'name' => 'تغطيات'
         ]);
+        NewsCategory::create([
+            'name' => 'مهرجانات وترفيه'
+        ]);
         Setting::create([
             'live' => '',
             'live_status' => 1
@@ -69,6 +72,11 @@ class AdminSeeder extends Seeder
             'head' => 'خبر مثلا عن محمد علي',
             'img' => 'test.png',
             'news_category_id' => 10
+        ]);
+        News::create([
+            'head' => 'هذا خبر منوع',
+            'img' => 'test.png',
+            'news_category_id' => 1
         ]);
     }
 }
