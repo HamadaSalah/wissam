@@ -85,12 +85,6 @@ class AdminSeeder extends Seeder
             'category' => 2,
             'img' => 'test.png'
         ]);
-        NewsCategory::create([
-            'name' => 'سناب 1',
-            'category' => 3,
-            'img' => 'test.png'
-        ]);
-
         //
         News::create([
             'head' => 'خبر مثلا عن محمد علي',
@@ -112,7 +106,49 @@ class AdminSeeder extends Seeder
             'head' => 'سناب واحد داخل سناب 1',
             'img' => 'test.png',
             'video' => 'video.mp4',
-            'news_category_id' => 14
+            'news_category_id' => 3
+        ]);
+        News::create([
+            'head' => 'سناب واحد داخل سناب 1',
+            'img' => 'test.png',
+            'video' => 'video.mp4',
+            'news_category_id' => 3
+        ]);
+        News::create([
+            'head' => 'موقع  1',
+            'img' => 'test.png',
+            'video' => 'video.mp4',
+            'news_category_id' => 5
+        ]);
+        News::create([
+            'head' => 'مسابقة 1',
+            'img' => 'test.png',
+            'video' => 'video.mp4',
+            'news_category_id' => 6
+        ]);
+        News::create([
+            'head' => 'ارشيف  1',
+            'img' => 'test.png',
+            'video' => 'video.mp4',
+            'news_category_id' => 7
+        ]);
+        News::create([
+            'head' => 'احتفال  1',
+            'img' => 'test.png',
+            'video' => 'video.mp4',
+            'news_category_id' => 8
+        ]);
+        News::create([
+            'head' => 'تغطيات  1',
+            'img' => 'test.png',
+            'video' => 'video.mp4',
+            'news_category_id' => 9
+        ]);
+        News::create([
+            'head' => 'ترفية  1',
+            'img' => 'test.png',
+            'video' => 'video.mp4',
+            'news_category_id' => 10
         ]);
         //
     }
