@@ -9,4 +9,8 @@ class Wishlist extends Model
 {
     use HasFactory;
     protected $fillable = ['user_id', 'news_id'];
+    public function news()
+    {
+        return $this->belongsTo(News::class);
+    }
 }

@@ -38,7 +38,7 @@ Route::group([
 });
 
 // 'middleware' => 'auth:api'
-Route::group([], function ($router) {
+Route::group(['middleware' => 'auth:api'], function ($router) {
 
     Route::resource('program', ProgramsController::class);
     Route::resource('video', VideosController::class);
@@ -52,7 +52,7 @@ Route::group([], function ($router) {
         return response()->json(Setting::select('live', 'live_status')->first(), 200);
     });
     Route::get('wishlist/all', function () {
-        return response()->json(Wishlist::where('user_id', auth()->user()->id), 200);
+        return response()->json(Wishlist::where('user_id', auth()->user()->id)->with('news')->get(), 200);
     });
     Route::post('wishlist/add', function (Request $request) {
         $request->validate([
