@@ -14,4 +14,8 @@ class News extends Model
     {
         return $this->belongsTo(NewsCategory::class, 'news_category_id', 'id');
     }
+    public function wishlist()
+    {
+        return $this->hasOne(Wishlist::class);
+    }
 }

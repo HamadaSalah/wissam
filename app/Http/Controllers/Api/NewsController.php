@@ -128,7 +128,7 @@ class NewsController extends Controller
     }
     public function showallnews($id)
     {
-        $cats = News::where('news_category_id', $id)->get();
+        $cats = News::where('news_category_id', $id)->with('wishlist')->get();
         return response()->json($cats, 200);
     }
     public function news($id)

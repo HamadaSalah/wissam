@@ -59,7 +59,7 @@ Route::group(['middleware' => 'auth:api'], function ($router) {
             'news_id' => 'required'
         ]);
         $check = Wishlist::where('user_id', auth()->user()->id)->where('news_id', $request->news_id)->first();
-        if ($check != NULL) {
+        if ($check == NULL) {
             Wishlist::create([
                 'user_id' => auth()->user()->id,
                 'news_id' => $request->news_id,
