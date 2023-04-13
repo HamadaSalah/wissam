@@ -165,7 +165,7 @@ class NewsController extends Controller
     public function search(Request $request)
     {
         $request->validate(['search' => 'required']);
-        $data = News::where('head', 'LIKE', '%' . $request->search . '%')->get();
+        $data = News::where('head', 'LIKE', '%' . $request->search . '%')->with('category')->get();
         return response()->json($data, 200);
     }
 }
