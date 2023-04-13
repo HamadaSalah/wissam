@@ -67,7 +67,7 @@ class AdminSeeder extends Seeder
             'name' => 'مهرجانات وترفيه'
         ]);
         Setting::create([
-            'live' => '',
+            'live' => 'https://media1.livaat.com/ALWESAM_TV/index.m3u8',
             'live_status' => 1
         ]);
         //

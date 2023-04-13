@@ -58,11 +58,16 @@ Route::group(['middleware' => 'auth:api'], function ($router) {
         $request->validate([
             'news_id' => 'required'
         ]);
-        Wishlist::create([
-            'user_id' => auth()->user()->id,
-            'news_id' => $request->news_id,
-        ]);
-        return response()->json(['message' => 'added successfully'], 200);
+        $check = Wishlist::where('user_id', auth()->user()->id)->where('news_id', $request->news_id)->first();
+        if ($check != NULL) {
+            Wishlist::create([
+                'user_id' => auth()->user()->id,
+                'news_id' => $request->news_id,
+            ]);
+            return response()->json(['message' => 'added successfully'], 200);
+        } else {
+            return response()->json(['message' => 'Founded in Wishlist'], 200);
+        }
     });
     Route::post('wishlist/delete', function (Request $request) {
         $request->validate([
