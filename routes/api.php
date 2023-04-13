@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AddsController;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\LivechatController;
 use App\Http\Controllers\Api\NewsController;
 use App\Http\Controllers\Api\ProgramsController;
 use App\Http\Controllers\Api\VideosController;
@@ -35,10 +36,13 @@ Route::group([
     Route::post('logout', [AuthController::class, 'logout']);
     Route::post('refresh', [AuthController::class, 'refresh']);
     Route::post('me', [AuthController::class, 'me']);
+    Route::post('newlogin', [AuthController::class, 'newlogin']);
 });
 
 // 'middleware' => 'auth:api'
 Route::group(['middleware' => 'auth:api'], function ($router) {
+    Route::post('/profilepic', [NewsController::class, 'profilepic']);
+    Route::post('/search', [NewsController::class, 'search']);
 
     Route::resource('program', ProgramsController::class);
     Route::resource('video', VideosController::class);
@@ -78,4 +82,6 @@ Route::group(['middleware' => 'auth:api'], function ($router) {
         $wisglist->delete();
         return response()->json(['message' => 'Deleted successfully'], 200);
     });
+    Route::get('/livechat', [LivechatController::class, 'get']);
+    Route::post('/livechat/add', [LivechatController::class, 'add']);
 });

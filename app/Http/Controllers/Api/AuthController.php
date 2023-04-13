@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Livechat;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,9 +19,50 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login', 'register']]);
+        $this->middleware('auth:api', ['except' => ['login', 'register', 'newlogin']]);
     }
 
+    /**
+     * Get a JWT via given credentials.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function newlogin(Request $request)
+    {
+        if ($request->phone) {
+            $user = User::where('phone', $request->phone)->first();
+            if ($user == NULL) {
+                $user = User::create([
+                    'phone' => $request->phone,
+                    'name' => $request->name
+                ]);
+                Livechat::create([
+                    'user_id' => $user->id
+                ]);
+                $token = JWTAuth::fromUser($user);
+                return response()->json(['token' => $token, 'user' => $user], 200);
+            } else {
+                $token = JWTAuth::fromUser($user);
+                return response()->json(['token' => $token, 'user' => $user], 200);
+            }
+        } else if ($request->email) {
+            $user = User::where('email', $request->email)->first();
+            if ($user == NULL) {
+                $user =  User::create([
+                    'email' => $request->email,
+                    'name' => $request->name
+                ]);
+                Livechat::create([
+                    'user_id' => $user->id
+                ]);
+                $token = JWTAuth::fromUser($user);
+                return response()->json(['token' => $token, 'user' => $user], 200);
+            } else {
+                $token = JWTAuth::fromUser($user);
+                return response()->json(['token' => $token, 'user' => $user], 200);
+            }
+        }
+    }
     /**
      * Get a JWT via given credentials.
      *

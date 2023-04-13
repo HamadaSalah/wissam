@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\News;
 use App\Models\NewsCategory;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -135,5 +136,36 @@ class NewsController extends Controller
     {
         $news = News::findOrFail($id);
         return response()->json($news, 200);
+    }
+    //
+    public function profilepic(Request $request)
+    {
+        $request->validate([
+            'photo' => 'required|mimes:png,jpg,jpeg.webp'
+        ]);
+        $user = User::findOrFail(auth()->user()->id);
+        if ($user) {
+            if ($request->hasFile('photo')) {
+                $file = $request->file('photo');
+                $ext = $file->getClientOriginalExtension();
+                $filename = 'photos' . '_' . time() . '.' . $ext;
+                $storagePath = Storage::disk('public_uploads')->put('/uploads/', $file);
+                $imgname = '/uploads/' . basename($storagePath);
+            } else {
+                $imgname = $user->photo;
+            }
+            $user->update([
+                'photo' => $imgname,
+                'name' => $request->name ?? $user->name,
+            ]);
+            return response()->json($user, 200);
+        }
+    }
+    //
+    public function search(Request $request)
+    {
+        $request->validate(['search' => 'required']);
+        $data = News::where('head', 'LIKE', '%' . $request->search . '%')->get();
+        return response()->json($data, 200);
     }
 }
