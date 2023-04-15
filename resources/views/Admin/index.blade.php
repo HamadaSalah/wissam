@@ -1,57 +1,39 @@
 @extends('Admin.master')
 @section('content')
      <div class="row">
-        <div class="col-lg-4 col-md-6 col-sm-6" style="padding-top: 20px">
+        <div class="col-lg-6 col-md-6 col-sm-6" style="padding-top: 20px">
             <div class="card card-stats">
               <div class="card-header card-header-success card-header-icon">
                 <div class="card-icon green">
                     <i class="nc-icon nc-layers-3"></i>
                 </div>
-                <p class="card-category" style="font-weight:bold"> News</p>
+                <p class="card-category" style="font-weight:bold"> الاخبار</p>
                 <h3 class="card-title">{{$employees}}
                 </h3>
               </div>
               <div class="card-footer">
                 <div class="stats">
-                  <a href="#">News</a>
-                </div>
+                 </div>
               </div>
             </div>
           </div>
-          <div class="col-lg-4 col-md-6 col-sm-6"  style="padding-top: 20px">
+          <div class="col-lg-6 col-md-6 col-sm-6"  style="padding-top: 20px">
             <div class="card card-stats">
               <div class="card-header card-header-success card-header-icon">
                 <div class="card-icon yellow">
                     <i class="nc-icon nc-grid-45"></i>
                 </div>
-                <p class="card-category" style="font-weight:bold"> Programs</p>
+                <p class="card-category" style="font-weight:bold"> الاقسام</p>
                 <h3 class="card-title">{{$users}}
                 </h3>
               </div>
               <div class="card-footer">
                 <div class="stats">
-                  <a href="#">Programs</a>
                 </div>
               </div>
             </div>
           </div>
-          <div class="col-lg-4 col-md-6 col-sm-6" style="padding-top: 20px">
-            <div class="card card-stats">
-              <div class="card-header card-header-success card-header-icon">
-                <div class="card-icon cayan" >
-                    <i class="nc-icon nc-app"></i>
-                </div>
-                <p class="card-category" style="font-weight:bold"> Ads</p>
-                <h3 class="card-title">{{$con}}
-                </h3>
-              </div>
-              <div class="card-footer">
-                <div class="stats">
-                  <a href="#">Ads</a>
-                </div>
-              </div>
-            </div>
-          </div>
+       
        
           {{-- <div id="container" style="width: 75%;">
             <canvas id="canvas"></canvas>

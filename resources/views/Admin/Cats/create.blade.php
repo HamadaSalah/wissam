@@ -11,7 +11,16 @@
     <label for="img">الاسم</label>
     <input type="text" class="form-control" name="name"  placeholder="الاسم..">
 </div>
- 
+<div class="form-group">
+  <label for="role">اختر القسم الرئيسي</label>
+  <select class="form-control" id="role" name="category" >
+    <option value="">قسم رئيسي</option>
+      @foreach ($cats as $cat)
+          <option value="{{$cat->id}}">{{$cat->name}}</option>
+      @endforeach
+  </select>
+</div>
+
  
 <button type="submit" class="btn btn-primary">حفظ</button>
   </form>

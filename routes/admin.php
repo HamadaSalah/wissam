@@ -40,5 +40,6 @@ Route::prefix('admin')->middleware('auth:admin')->name('admin.')->group(function
     Route::resource('adds', AddsController::class);
     Route::resource('news', NewsController::class);
     Route::resource('categories', CatsController::class);
+    Route::post('catdel', [CatsController::class, 'catdel'])->name('catdel');
     Route::resource('programs', ProgramsController::class);
 });

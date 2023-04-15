@@ -8,7 +8,7 @@
 <div class="clear"></div>
     @if ($cats->count() > 0)
     <div class="table-responsive">
-        <table class="table user-table no-wrap" id="myDTable">
+        <table class="table user-table no-wrap" id="myDTable" dir="rtl">
             <thead>
                 <tr>
                     <th class="border-top-0">#</th>
@@ -20,20 +20,42 @@
                 @foreach ($cats as $key =>  $cat)
                 <tr>
                     <td>{{$key+1}}</td>
-                    <td>{{$cat->name}}</td>
+                    <td> <span style="background: green;color: #FFF;padding: 1px 5px;border-radius: 5px;margin-bottom: 10px;display: inline-block"> {{$cat->name}}</span>
+                    @if ($cat->categories->count() > 0)<br/>
+                        <span style="margin-bottom: 10px;display: block">الاقسام الداخلية</span>
+                        @foreach ($cat->categories as $item)
+                        <a href="{{Route('admin.categories.edit', $item->id)}} "><li style="list-style: none;
+                            direction: rtl;
+                            background: yellow;
+                            color: #000;
+                            padding: 1px 5px;
+                            border-radius: 5px;
+                            margin-bottom: 10px;
+                            width: fit-content;
+                            text-align: center;
+                            margin: auto;
+                            margin-bottom: 10px;"> - {{$item->name}}</li></a>
+                        @endforeach
+                    @endif
+                    </td>
                     <td>
-                        <a data-toggle="modal" id="smallButton" data-target="#smallModal" data-attr="{{ route('admin.categories.destroy', $cat->id) }}" title="Delete Project">
+                        {{-- <a data-toggle="modal" id="smallButton" data-target="#smallModal" data-attr="{{ route('admin.categories.destroy', $cat->id) }}" title="Delete Project">
                             <i class="fas fa-trash text-danger  fa-lg"></i>
                         </a>
-        
+         --}}
                         {{-- <button class="btn btn-danger" type="submit"><i class="fa fa-trash"></i> حذف</button> --}}
                         {{-- <form style="display: inline;" action="{{route('admin.categories.destroy', $cat->id)}}" method="post">
                             @csrf
                             @method('DELETE')
                         </form> --}}
-                        {{-- <a href="{{Route('admin.cats.edit', $cat->id)}} ">
-                            <button class="btn btn-primary"><i class="fa fa-pencil-square-o"></i> Edit</button>
-                        </a> --}}
+                         {{-- <a style="font-size: 20px;margin-right: 10px" href="{{Route('admin.categories.edit', $cat->id)}} ">
+                             <i class="fa fa-pencil-square-o"></i>   
+                        </a>   --}}
+                        <a style="font-size: 20px;margin-right: 10px" href="{{Route('admin.categories.edit', $cat->id)}} ">
+                            <button class="btn btn-primary  "  >تعديل</button>
+                       </a>  
+
+                        <button class="btn btn-danger delete-btn" data-id="{{ $cat->id }}" data-toggle="modal" data-target="#deleteModal">حذف</button>
 
                     </td>
 
@@ -47,6 +69,30 @@
     @else
         <div class="text-center">No Data Available</div> 
     @endif
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="deleteModalLabel">Confirm Delete</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              هل تريد الحذف
+            </div>
+            <div class="modal-footer">
+              <form action="{{ route('admin.catdel') }}" method="POST">
+                @csrf
+                <input type="hidden" name="id" id="deleteItemId" value="">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">لا</button>
+                <button type="submit" class="btn btn-danger">نعم</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      
     @if (isset($cat))
     <!-- small modal -->
         <div class="modal fade" id="smallModal" tabindex="-1" role="dialog" aria-labelledby="smallModalLabel" aria-hidden="true">
@@ -70,10 +116,20 @@
                                 <div class="modal-footer">
                                 </div>
                             </form>
-                                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 @endif
+@push('custom-scripts')
+    <script>
+        $(document).on('click', '.delete-btn', function() {
+        var itemId = $(this).data('id');
+        $('#deleteItemId').val(itemId);
+        $('#deleteModal').modal('show');
+        });
+
+    </script>
+@endpush
 @endsection
