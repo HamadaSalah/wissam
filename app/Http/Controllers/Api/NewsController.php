@@ -141,7 +141,7 @@ class NewsController extends Controller
     public function profilepic(Request $request)
     {
         $request->validate([
-            'photo' => 'required|mimes:png,jpg,jpeg.webp'
+            'photo' => 'sometimes|mimes:png,jpg,jpeg.webp'
         ]);
         $user = User::findOrFail(auth()->user()->id);
         if ($user) {

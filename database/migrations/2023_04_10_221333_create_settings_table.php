@@ -16,7 +16,8 @@ return new class extends Migration
         Schema::create('settings', function (Blueprint $table) {
             $table->id();
             $table->string('live')->nullable();
-            $table->string('live_status')->nullable()->default(0);
+            $table->string('live_status')->nullable()->default(1);
+            $table->string('livechat_status')->nullable()->default(1);
             $table->timestamps();
         });
     }

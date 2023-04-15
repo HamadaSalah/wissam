@@ -1,4 +1,7 @@
-        <div class="sidebar" data-image="{{asset('Dashboard/assets/img/sidebar-5.jpg')}}">
+        <div class="sidebar" data-image="{{asset('Dashboard/assets/img/sidebar-5.jpg')}}" style="float: right;
+        text-align: right;
+        right: 0;
+        left: unset;">
             <div class="sidebar-wrapper">
                 <div class="logo" style="font-weight: bold">
                     <a href="#" class="simple-text">

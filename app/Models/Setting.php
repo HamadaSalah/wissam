@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Setting extends Model
 {
     use HasFactory;
-    protected $fillable = ['live', 'live_status'];
+    protected $fillable = ['live', 'live_status', 'livechat_status'];
 }
