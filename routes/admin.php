@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\EventsController;
 use App\Http\Controllers\Admin\FacilController;
 use App\Http\Controllers\Admin\GalleryController;
 use App\Http\Controllers\Admin\LoginController;
+use App\Http\Controllers\Admin\NewsController;
 use App\Http\Controllers\Admin\PolicesController;
 use App\Http\Controllers\Admin\ProductsController;
 use App\Http\Controllers\Admin\ProgramsController;
@@ -35,11 +36,12 @@ Route::prefix('admin')->middleware('guest:admin')->name('admin.')->group(functio
 });
 Route::prefix('admin')->middleware('auth:admin')->name('admin.')->group(function () {
     Route::get('/index', [LoginController::class, 'index'])->name('index');
-    Route::resource('program', ProgramsController::class);
-    Route::resource('video', VideosController::class);
-    Route::resource('adds', AddsController::class);
-    Route::resource('news', NewsController::class);
+    // Route::resource('program', ProgramsController::class);
+    // Route::resource('video', VideosController::class);
+    // Route::resource('adds', AddsController::class);
     Route::resource('categories', CatsController::class);
     Route::post('catdel', [CatsController::class, 'catdel'])->name('catdel');
-    Route::resource('programs', ProgramsController::class);
+    Route::post('newdel', [NewsController::class, 'newdel'])->name('newdel');
+    Route::resource('news', NewsController::class);
+    // Route::resource('programs', ProgramsController::class);
 });

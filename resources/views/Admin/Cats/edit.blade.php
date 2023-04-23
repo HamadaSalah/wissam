@@ -11,6 +11,11 @@
     <label for="img">الاسم</label>
     <input type="text" class="form-control" name="name" value="{{$cat->name}}" required  placeholder="الاسم..">
 </div>
+<div class="form-group">
+  <label for="img">صورة</label>
+  <input type="file" class="form-control" name="img" >
+</div>
+
  
  
 <button type="submit" class="btn btn-primary">حفظ</button>

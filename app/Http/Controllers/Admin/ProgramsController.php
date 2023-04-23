@@ -15,7 +15,7 @@ class ProgramsController extends Controller
      */
     public function index()
     {
-        $cats = Program::all();
+        $cats = News::all();
         return view('Admin.programs.index', compact('cats'));
     }
 

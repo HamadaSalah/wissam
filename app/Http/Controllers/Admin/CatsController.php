@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\NewsCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class CatsController extends Controller
 {
@@ -42,9 +43,17 @@ class CatsController extends Controller
         $request->validate([
             'name' => 'required',
         ]);
+        if ($request->hasFile('img')) {
+            $file = $request->file('img');
+            $ext = $file->getClientOriginalExtension();
+            $filename = 'imgs' . '_' . time() . '.' . $ext;
+            $storagePath = Storage::disk('public_uploads')->put('/uploads/', $file);
+            $imgname = 'uploads/' . basename($storagePath);
+        }
         NewsCategory::create([
             'name' => $request->name,
             'category' => $request->category,
+            'img' => $imgname ?? null
         ]);
         return redirect()->route('admin.categories.index')->with('success', 'Created Successfully');
     }
@@ -84,9 +93,18 @@ class CatsController extends Controller
         $request->validate([
             'name' => 'required'
         ]);
+        if ($request->hasFile('img')) {
+            $file = $request->file('img');
+            $ext = $file->getClientOriginalExtension();
+            $filename = 'imgs' . '_' . time() . '.' . $ext;
+            $storagePath = Storage::disk('public_uploads')->put('/uploads/', $file);
+            $imgname = 'uploads/' . basename($storagePath);
+        }
+        // dd($imgname);
         $cat = NewsCategory::findOrFail($id);
         $cat->update([
-            'name' => $request->name
+            'name' => $request->name,
+            'img' => $imgname
         ]);
         return redirect()->route('admin.categories.index')->with('success', 'updated Successfully');
     }

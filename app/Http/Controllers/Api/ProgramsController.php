@@ -94,6 +94,6 @@ class ProgramsController extends Controller
         $prog = Program::findOrFail($id);
         $prog->delete();
 
-        return response()->json(['message' => 'Program Deleted Successfully'], 200);
+        return response()->json(['message' => 'Programتم الحذف'], 200);
     }
 }

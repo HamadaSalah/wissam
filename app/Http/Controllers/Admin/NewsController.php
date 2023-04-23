@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\News;
+use App\Models\NewsCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -16,10 +17,13 @@ class NewsController extends Controller
      */
     public function index(Request $request)
     {
-        if ($request->id) {
-            return response()->json(News::with('category')->where('news_category_id', $request->id)->get(), 200);
+        $cats = NewsCategory::doesntHave('categories')->get();
+        if ($request->category) {
+            $videos = News::where('news_category_id', $request->category)->get();
+        } else {
+            $videos = News::all();
         }
-        return response()->json(News::with('category')->get(), 200);
+        return view('Admin.News.index', compact('videos', 'cats'));
     }
 
     /**
@@ -29,7 +33,8 @@ class NewsController extends Controller
      */
     public function create()
     {
-        //
+        $cats = NewsCategory::doesntHave('categories')->get();
+        return view('Admin.News.create', compact('cats'));
     }
 
     /**
@@ -42,8 +47,6 @@ class NewsController extends Controller
     {
         $request->validate([
             'head' => 'required',
-            'body' => 'required',
-            'img' => 'required',
             'news_category_id' => 'required',
         ]);
         if ($request->hasFile('img')) {
@@ -51,15 +54,23 @@ class NewsController extends Controller
             $ext = $file->getClientOriginalExtension();
             $filename = 'imgs' . '_' . time() . '.' . $ext;
             $storagePath = Storage::disk('public_uploads')->put('/uploads/', $file);
-            $imgname = basename($storagePath);
+            $imgname = 'uploads/' . basename($storagePath);
         }
-        $prog = News::create([
+        if ($request->hasFile('video')) {
+            $file = $request->file('video');
+            $ext = $file->getClientOriginalExtension();
+            $filename = 'videos' . '_' . time() . '.' . $ext;
+            $storagePath = Storage::disk('public_uploads')->put('/uploads/', $file);
+            $videoname = 'uploads/' . basename($storagePath);
+        }
+        News::create([
             'head' => $request->head,
-            'body' => $request->body,
-            'img' => $imgname,
+            'body' => $request->body ?? null,
+            'img' => $imgname ?? null,
+            'video' => $videoname ?? null,
             'news_category_id' => $request->news_category_id
         ]);
-        return response()->json($prog, 200);
+        return redirect()->route('admin.news.index')->with('success', 'تم الاضافة');
     }
 
     /**
@@ -81,7 +92,9 @@ class NewsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $cats = NewsCategory::doesntHave('categories')->get();
+        $news = News::findOrFail($id);
+        return view('Admin.News.edit', compact('cats', 'news'));
     }
 
     /**
@@ -93,14 +106,33 @@ class NewsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
-        // $request->validate(['name' => 'required']);
-        // $prog = Program::findOrFail($id);
-
-        // $prog->update([
-        //     'name' => $request->name
-        // ]);
-        // return response()->json($prog, 200);
+        $request->validate([
+            'head' => 'required',
+            'news_category_id' => 'required',
+        ]);
+        if ($request->hasFile('img')) {
+            $file = $request->file('img');
+            $ext = $file->getClientOriginalExtension();
+            $filename = 'imgs' . '_' . time() . '.' . $ext;
+            $storagePath = Storage::disk('public_uploads')->put('/uploads/', $file);
+            $imgname = 'uploads/' . basename($storagePath);
+        }
+        if ($request->hasFile('video')) {
+            $file = $request->file('video');
+            $ext = $file->getClientOriginalExtension();
+            $filename = 'videos' . '_' . time() . '.' . $ext;
+            $storagePath = Storage::disk('public_uploads')->put('/uploads/', $file);
+            $videoname = 'uploads/' . basename($storagePath);
+        }
+        $news = News::findOrFail($id);
+        $news->update([
+            'head' => $request->head,
+            'body' => $request->body ?? $news->body,
+            'img' => $imgname ?? $news->img,
+            'video' => $videoname ?? $news->video,
+            'news_category_id' => $request->news_category_id
+        ]);
+        return redirect()->route('admin.news.index')->with('success', 'تم التعديل ');
     }
     /**
      * Remove the specified resource from storage.
@@ -108,11 +140,16 @@ class NewsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        $prog = News::findOrFail($id);
-        $prog->delete();
-
-        return response()->json(['message' => 'News Deleted Successfully'], 200);
+        $cat = News::findOrFail($request->deleteItemId);
+        $cat->delete();
+        return redirect()->route('admin.news.index')->with('success', 'Deleted Successfully');
+    }
+    public function newdel(Request $request)
+    {
+        $cat = News::findOrFail($request->id);
+        $cat->delete();
+        return redirect()->route('admin.news.index')->with('success', 'Deleted Successfully');
     }
 }

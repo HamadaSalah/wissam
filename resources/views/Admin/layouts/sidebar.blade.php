@@ -15,18 +15,18 @@
                             <p>الاقسام</p>
                         </a>
                     </li>
-                    <li class="{{ Request::segment(2) == 'programs' ? 'active' : null }}">
-                        <a class="nav-link" href="{{route('admin.programs.index')}}">
+                    <li class="{{ Request::segment(2) == 'news' ? 'active' : null }}">
+                        <a class="nav-link" href="{{route('admin.news.index')}}">
                             <i class="nc-icon nc-bullet-list-67"></i>
-                            <p>البرامج</p>
+                            <p>محتوي الاقسام</p>
                         </a>
                     </li>
-                    <li class="{{ Request::segment(2) == 'video' ? 'active' : null }}">
+                    {{-- <li class="{{ Request::segment(2) == 'video' ? 'active' : null }}">
                         <a class="nav-link" href="{{route('admin.video.index')}}">
                             <i class="nc-icon nc-bullet-list-67"></i>
                             <p>الفيديوهات</p>
                         </a>
-                    </li>
+                    </li> --}}
                     {{-- <li class="{{ Request::segment(2) == 'users' ? 'active' : null }}">
                         <a class="nav-link" href="{{route('admin.users.index')}}">
                             <i class="nc-icon nc-single-02"></i>

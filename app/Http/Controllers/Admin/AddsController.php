@@ -112,6 +112,6 @@ class AddsController extends Controller
     {
         $prog = Add::findOrFail($id);
         $prog->delete();
-        return response()->json(['message' => 'Advertise Deleted Successfully'], 200);
+        return response()->json(['message' => 'Advertiseتم الحذف'], 200);
     }
 }

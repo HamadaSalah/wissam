@@ -121,6 +121,6 @@ class VideosController extends Controller
         $prog = Video::findOrFail($id);
         $prog->delete();
 
-        return response()->json(['message' => 'Video Deleted Successfully'], 200);
+        return response()->json(['message' => 'Videoتم الحذف'], 200);
     }
 }

@@ -115,7 +115,7 @@ class NewsController extends Controller
         $prog = News::findOrFail($id);
         $prog->delete();
 
-        return response()->json(['message' => 'News Deleted Successfully'], 200);
+        return response()->json(['message' => 'Newsتم الحذف'], 200);
     }
     public function cats()
     {

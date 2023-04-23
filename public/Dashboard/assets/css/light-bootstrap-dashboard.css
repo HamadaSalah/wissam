@@ -1702,7 +1702,7 @@ fieldset[disabled] .form-control {
 
 .alert button.close {
     position: absolute;
-    right: 10px;
+    left: 10px;
     top: 50%;
     margin-top: -13px;
     z-index: 1033;
@@ -2113,6 +2113,7 @@ fieldset[disabled] .form-control {
 .navbar .nc-icon {
     font-weight: 700;
     margin-top: 10px;
+    display: none;
 }
 
 .navbar-transparent .navbar-brand,

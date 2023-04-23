@@ -20,6 +20,11 @@
       @endforeach
   </select>
 </div>
+<div class="form-group">
+  <label for="img">صورة</label>
+  <input type="file" class="form-control" name="img" >
+</div>
+
 
  
 <button type="submit" class="btn btn-primary">حفظ</button>

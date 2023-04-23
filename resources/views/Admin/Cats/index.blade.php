@@ -13,6 +13,7 @@
                 <tr>
                     <th class="border-top-0">#</th>
                     <th class="border-top-0">الاسم</th>
+                    <th class="border-top-0">الصورة</th>
                     <th class="border-top-0">الاجراء</th>
                 </tr>
             </thead>
@@ -37,6 +38,14 @@
                             margin-bottom: 10px;"> - {{$item->name}}</li></a>
                         @endforeach
                     @endif
+                    </td>
+                    <td>
+                        @if ($cat->img)
+
+                        <a data-fancybox="gallery" href="{{asset($cat->img)}}"> <img src="{{asset($cat->img)}}" style="width: 100px;height: 100px;" class="img-thumbnail" alt=""></a>    
+                        @else
+                        لا يوجد
+                        @endif
                     </td>
                     <td>
                         {{-- <a data-toggle="modal" id="smallButton" data-target="#smallModal" data-attr="{{ route('admin.categories.destroy', $cat->id) }}" title="Delete Project">
