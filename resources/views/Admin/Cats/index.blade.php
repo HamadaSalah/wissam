@@ -35,7 +35,13 @@
                             width: fit-content;
                             text-align: center;
                             margin: auto;
-                            margin-bottom: 10px;"> - {{$item->name}}</li></a>
+                            margin-bottom: 10px;
+                            display: initial;
+                            margin-bottom: 20px;
+                            cursor: pointer;
+                            "> - {{$item->name}}</li></a>
+                            <i class="fa fa-trash delete-btn"   data-id="{{ $item->id }}" data-toggle="modal" data-target="#deleteModal" style="color: red;cursor: pointer;"></i>
+                            <div class="clearfix" style="margin-bottom: 20px"></div>
                         @endforeach
                     @endif
                     </td>
