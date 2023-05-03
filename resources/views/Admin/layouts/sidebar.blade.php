@@ -21,6 +21,18 @@
                             <p>محتوي الاقسام</p>
                         </a>
                     </li>
+                    <li class="{{ Request::segment(2) == 'mess' ? 'active' : null }}">
+                        <a class="nav-link" href="{{route('admin.mess.index')}}">
+                            <i class="nc-icon nc-bullet-list-67"></i>
+                            <p>المحادثات</p>
+                        </a>
+                    </li>
+                    <li class="{{ Request::segment(2) == 'settings' ? 'active' : null }}">
+                        <a class="nav-link" href="{{route('admin.settings.index')}}">
+                            <i class="nc-icon nc-bullet-list-67"></i>
+                            <p>الاعدادات</p>
+                        </a>
+                    </li>
                     {{-- <li class="{{ Request::segment(2) == 'video' ? 'active' : null }}">
                         <a class="nav-link" href="{{route('admin.video.index')}}">
                             <i class="nc-icon nc-bullet-list-67"></i>
