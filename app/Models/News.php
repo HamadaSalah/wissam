@@ -10,6 +10,11 @@ class News extends Model
     use HasFactory;
     protected $fillable = ['head', 'body', 'img',  'video', 'news_category_id'];
 
+    public function getBodyAttribute($value)
+    {
+        return strip_tags($value);
+    }
+
     public function category()
     {
         return $this->belongsTo(NewsCategory::class, 'news_category_id', 'id');
